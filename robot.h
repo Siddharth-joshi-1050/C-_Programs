@@ -41,6 +41,15 @@ Robot::Robot(float * a, float * b, int n)
 }
 
 void Robot::forward_kin()
+    /*  The following segment is to manipulate forward kinematics 
+            for a  3R planar robot arm with user-defined prameters. 
+            The number of links and angles are defined for 3 links 
+            and adding more links is not facilitated.
+
+            The input parameters are link lengths and corresponding 
+            angles. Output is the end-effector pose i.e, position 
+            and orientation.
+    */
 {
     this->end_pos_x=(this->length[0]*cos(this->theta[0]))+
                         (this->length[1]*cos(this->theta[0]+this->theta[1]))+
@@ -63,7 +72,18 @@ void Robot::forward_kin()
     cout << "Theta: " << end_pos_theta << " degrees" << endl;
 }
 
+
 void Robot::forward_kin_var_size()
+    /*  The following segment is to manipulate forward kinematics 
+            for a Planar robot arm with user-defined parameters. 
+            The number of links and angles are user-defined and 
+            adding more links is facilitated in this section.
+
+            The input parameters are number of links, link lengths 
+            and corresponding angles. Output is the end-effector 
+            pose i.e, position and orientation.
+    */
+
 {
     this->end_pos_x = 0;
     this->end_pos_y = 0;
@@ -87,6 +107,15 @@ void Robot::forward_kin_var_size()
 }
 
 bool Robot::intersection(double circle_x, double circle_y, double circle_r)
+    /*  The following segment is to check if the end-effector pose lies
+            within the user-defined circular boundaries. The end-effector pose is 
+            calculated based on the user input of joint-space for a 3R planar robot. 
+
+            The input parameters are link lengths, corresponding 
+            angles, circle center (circle_x,circle_y) and circle radius (circle_r) 
+            Output is the boolean check on end-effector pose, if it lies within
+            defined geometry. 
+    */
 {
     if(pow((this->end_pos_x - circle_x),2)+pow((this->end_pos_y - circle_y),2) <= pow(circle_r, 2))
     {
@@ -111,6 +140,17 @@ bool Robot::intersection(double circle_x, double circle_y, double circle_r)
 }
 
 void Robot::inverse_kin(double end_pos_x, double end_pos_y, double end_pos_theta, double linklength0, double linklength1, double linklength2)
+    /*  The following segment is to manipulate a 3R planar robot arm for inverse
+            kinematics. Given the end-effector pose as input parameters, joint 
+            parameters are calculated. However, this calculation works only with
+            3R planar robot. It will raise and error message and break, for input
+            links greater than 3, and for links less than 3, the corresponding
+            missing parameters will be asked for.
+
+            The input parameters are end-effector pose (task space). Output is 
+            the joint space parameters, which in this case will give feasible solutions
+            for elbow-up and elbow-down position.
+    */
 {
     end_pos_theta *= M_PI / 180;
     this->end_pos_x = end_pos_x;
