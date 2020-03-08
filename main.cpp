@@ -225,4 +225,57 @@ int main()
             }
             
     }
+    else if (choice == 4)
+    {
+
+        
+            cout << "========================= Inverse Kinematics ==============================="<<endl;
+
+            Robot r2 = Robot();
+            i=0;
+            cout << "NOTE : Enter angles in degrees" << endl;
+
+            cout<<"\nEnter the x coordinate of the end effector:" << endl;
+            cin>>e_x;
+            cout<<"Enter the y coordinate of the end effector:" << endl;
+            cin>>e_y;
+            cout<<"Enter the orientation of the end effector:" << endl;
+            cin>>e_t;
+            while(input >= 0)
+            {
+                cout<<"Enter link-length["<< i <<"] or enter -1 to exit:"<<endl;
+                cin >> input;
+                if(input == -1)
+                {
+                    if(i<3)
+                    {
+                        cout<<"You have to provide exactly 3 links!"<<endl;
+                        input=0;
+                        continue;
+                    }
+                    else
+                        break;
+                }
+                if(i==3)
+                {
+                    cout<<"The calculation is allowed for only 3 links!!"<<endl;
+                    break;
+                }
+                if(input != -1)
+                {
+                        link_lengths[i++] = input;
+                }
+            }
+            r2.inverse_kin(e_x, e_y, e_t, link_lengths[0], link_lengths[1], link_lengths[2]);
+
+            duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+            
+            std::cout << "duration milliseconds initialize beliefs " << 1000 * duration << '\n';
+        
+    }
+    else 
+    {
+
+            cout << "Kindly choose from one of the choices above. Thank you!" << endl;
+    }
 }
