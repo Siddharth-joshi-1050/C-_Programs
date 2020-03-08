@@ -164,35 +164,20 @@ void Robot::inverse_kin(double end_pos_x, double end_pos_y, double end_pos_theta
     c2 = (pow(x,2) + pow(y,2) - pow(linklength0,2) - pow(linklength1,2))/(2 * linklength0 * linklength1);
     s21 = pow(double(1 - pow(c2,2)), 0.5);
     s22 = s21 * -1;
-    theta21 = atan(s21/c2);
-    theta22 = atan(s22/c2);
+    theta21 = atan2(s21,c2);
+    theta22 = atan2(s22,c2);
 
     s11 = ((linklength0 + (linklength1*c2))*y - (linklength1*s21*x))/(pow(x,2) + pow(y,2));
-    c11 = ((linklength0 + (linklength1*c2))*x - (linklength1*s21*y))/(pow(x,2) + pow(y,2));
+    c11 = ((linklength0 + (linklength1*c2))*x + (linklength1*s21*y))/(pow(x,2) + pow(y,2));
 
     s12 = ((linklength0 + (linklength1*c2))*y - (linklength1*s22*x))/(pow(x,2) + pow(y,2));
-    c12 = ((linklength0 + (linklength1*c2))*x - (linklength1*s22*y))/(pow(x,2) + pow(y,2));
+    c12 = ((linklength0 + (linklength1*c2))*x + (linklength1*s22*y))/(pow(x,2) + pow(y,2));
 
-    theta11 = atan(s11/c11);
-    theta12 = atan(s12/c12);
-
+    theta11 = atan2(s11,c11);
+    theta12 = atan2(s12,c12);
 
     theta31 = end_pos_theta - theta21 - theta11;
     theta32 = end_pos_theta - theta22 - theta12;
-
-    cout << "Trial Outputs: " << endl;
-    cout << "X : "<< x << endl;
-    cout << "Y : "<< y << endl;
-    cout << "c2 : "<< c2 << endl;
-    cout << "s21 : " << s21 << endl;
-    cout << "s22 : " << s22 << endl; 
-    cout << "theta 21 :" << (theta21*180)/M_PI << endl;
-    cout << "theta 22 :" << (theta22*180)/M_PI << endl;
-    cout << "theta 11 :" << (theta11*180)/M_PI << endl;
-    cout << "theta 12 :" << (theta12*180)/M_PI << endl;
-    cout << "theta 31 :" << (theta31*180)/M_PI << endl;
-    cout << "theta 32 :" << (theta32*180)/M_PI << endl;
-
 
     cout << "=======================================================" << endl;
     cout<< "The first set of feasible solution is: "<< endl;
