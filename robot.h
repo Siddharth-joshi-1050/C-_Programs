@@ -88,7 +88,26 @@ void Robot::forward_kin_var_size()
 
 bool Robot::intersection(double circle_x, double circle_y, double circle_r)
 {
-
+    if(pow((this->end_pos_x - circle_x),2)+pow((this->end_pos_y - circle_y),2) <= pow(circle_r, 2))
+    {
+        cout << "\n" << endl;
+        cout << "=======================================================" << endl;
+        cout << "OBSERVATION:" << endl;
+        cout << "=======================================================" << endl;
+        cout<<"End-effector is within circular bounds"<<endl;
+        
+        return true;
+    }
+    else
+    {   
+        cout << "\n" << endl;
+        cout << "=======================================================" << endl;
+        cout << "OBSERVATION:" << endl;
+        cout << "=======================================================" << endl;
+        cout<<"End-effector is outside circular bounds"<<endl;
+        
+        return false;
+    }
 }
 
 void Robot::inverse_kin(double end_pos_x, double end_pos_y, double end_pos_theta, double linklength0, double linklength1, double linklength2)
