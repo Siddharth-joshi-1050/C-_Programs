@@ -150,5 +150,79 @@ int main()
                 cout << "Invalid Choice! Kindly enter Y or N next time." << endl;
             }
     }
+    else if (choice == 3)
+    {
+          
 
+            cout << "========================== Intersection =============================="<<endl;
+            
+            char demo;
+
+            cout << "\n" << endl;
+            cout << "Note : Enter Y for YES | N for NO" << endl;
+            cout << "Would you like a test demonstration?" << endl;
+            cin >> demo;
+
+
+            if (demo == 'Y')
+            {
+
+                cout << "\n" << endl;
+                cout << "=======================================================" << endl;
+                cout << "Following Demo is for input parameters:" << endl;
+                cout << "=======================================================" << endl;
+                cout << "\n" << endl;
+                cout << "ANGLES : (Theta 0, Theta 1, Theta 2) = (30, 45, 30) degrees" << endl;
+                cout << "LENGTHS : (Link 0, Link 1, Link 2) = (1, 2, 3) units" << endl;
+                cout << "CIRCLE : Center = (1,4) | Radius = 2" << endl;
+                cout << "\n" << endl;
+
+                float theta0[3] = {30, 45, 30};
+                float length0[3] = {1, 2, 3};
+                Robot r0(theta0, length0, 3);
+                r0.forward_kin();
+
+                r0.intersection(1, 4, 2);
+                cout << endl;
+
+            }
+            else if (demo == 'N')
+            {
+                cout << "\n" << endl;
+                cout<< "Enter the corresponding parameters for 3R planar robot :" <<endl;
+                cout<< "Note : Enter angles in degrees." <<endl;
+
+                float theta0[3]; 
+                float length0[3];
+                for (i = 0; i < 3; i++)
+                {
+                    cout << "Enter Theta for Link["<< i <<"]" << endl;
+                    cin >> theta0[i];
+                    cout << "Enter Length of Link["<< i <<"]" << endl;
+                    cin >> length0[i];
+                }
+
+                Robot r0(theta0,length0,3);
+                r0.forward_kin();
+                cout << endl;
+
+
+                cout << "\n" << endl;
+                cout << "\nEnter details of the circle: "<<endl;
+                cout << "Enter x coordinate of centre:"<<endl;
+                cin >> c_x;
+                cout << "Enter y coordinate of centre:"<<endl;
+                cin >> c_y;
+                cout << "Enter the radius:"<<endl;
+                cin >> c_r;
+
+                r0.intersection(c_x, c_y, c_r);
+                cout << endl;
+            }
+            else
+            {
+                cout << "Invalid Choice! Kindly enter Y or N next time." << endl;  
+            }
+            
+    }
 }
