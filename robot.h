@@ -65,7 +65,25 @@ void Robot::forward_kin()
 
 void Robot::forward_kin_var_size()
 {
-
+    this->end_pos_x = 0;
+    this->end_pos_y = 0;
+    int i=0,j=0;
+    float theta_sum=0;
+    for(i=0;i<this->size;i++)
+    {
+         theta_sum += this->theta[i];
+         this->end_pos_x += this->length[i] * cos(theta_sum);
+         this->end_pos_y += this->length[i] * sin(theta_sum);
+    }
+    this->end_pos_theta = theta_sum;
+    cout << " \n";
+    cout << "=======================================================" << endl;
+    cout << "END-EFFECTOR CREDENTIALS:" << endl;
+    cout << "=======================================================" << endl;
+    cout << " \n" << endl;
+    cout << "X: " << end_pos_x << " units" << endl; 
+    cout << "Y: " << end_pos_y << " units" << endl;
+    cout << "Theta: " << (end_pos_theta*180)/M_PI << " degrees" << endl;
 }
 
 bool Robot::intersection(double circle_x, double circle_y, double circle_r)
