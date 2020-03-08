@@ -1,7 +1,20 @@
+/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++   NOTE : main.cpp and and robot.h should be in the same directory.                             +
++   Execution of the main.cpp can be executed through following steps:                           + 
++                                                                                                +
++   1. Download and extract the zip file in a suitable directory.                                +
++   2. Open terminal and open directory where the zip file is extracted.                         +
++   3. Use Command :  g++ main.cpp                                                               +
++   4. Given the choices, select appropriate option to proceed with your manipulations.          +
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+
+
+
 #include <iostream>
 #include <ctime>
 #include <math.h>
-#include "robot_original.h"
+#include "robot.h"
 
 using namespace std;
 
@@ -231,51 +244,83 @@ int main()
         
             cout << "========================= Inverse Kinematics ==============================="<<endl;
 
-            Robot r2 = Robot();
-            i=0;
-            cout << "NOTE : Enter angles in degrees" << endl;
+            char demo;
 
-            cout<<"\nEnter the x coordinate of the end effector:" << endl;
-            cin>>e_x;
-            cout<<"Enter the y coordinate of the end effector:" << endl;
-            cin>>e_y;
-            cout<<"Enter the orientation of the end effector:" << endl;
-            cin>>e_t;
-            while(input >= 0)
+            cout << "\n" << endl;
+            cout << "Note : Enter Y for YES | N for NO" << endl;
+            cout << "Would you like a test demonstration?" << endl;
+            cin >> demo;
+
+
+            if (demo == 'Y')
             {
-                cout<<"Enter link-length["<< i <<"] or enter -1 to exit:"<<endl;
-                cin >> input;
-                if(input == -1)
-                {
-                    if(i<3)
-                    {
-                        cout<<"You have to provide exactly 3 links!"<<endl;
-                        input=0;
-                        continue;
-                    }
-                    else
-                        break;
-                }
-                if(i==3)
-                {
-                    cout<<"The calculation is allowed for only 3 links!!"<<endl;
-                    break;
-                }
-                if(input != -1)
-                {
-                        link_lengths[i++] = input;
-                }
-            }
-            r2.inverse_kin(e_x, e_y, e_t, link_lengths[0], link_lengths[1], link_lengths[2]);
+                cout << "\n" << endl;
+                cout << "==========================================================================================" << endl;
+                cout << "Following Demo is for input parameters analogous to output of Forward Kinematics Demo:" << endl;
+                cout << "==========================================================================================" << endl;
+                cout << "\n" << endl;
+                cout << "End-effector orientation : 105 degrees" << endl;
+                cout << "LENGTHS : (Link 0, Link 1, Link 2) = (1, 2, 3) units" << endl;
+                cout << "Eng-effector position = (0.607, 5.32963)" << endl;
+                cout << "\n" << endl;
+                
+                Robot r2 = Robot();
+                r2.inverse_kin(0.607206, 5.32963, 105, 1, 2, 3);
 
-            duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
-            
-            std::cout << "duration milliseconds initialize beliefs " << 1000 * duration << '\n';
-        
+            }
+            else if (demo == 'N')
+            {
+
+                Robot r2 = Robot();
+                i=0;
+                cout << "NOTE : Enter angles in degrees" << endl;
+
+                cout<<"\nEnter the x coordinate of the end effector:" << endl;
+                cin>>e_x;
+                cout<<"Enter the y coordinate of the end effector:" << endl;
+                cin>>e_y;
+                cout<<"Enter the orientation of the end effector:" << endl;
+                cin>>e_t;
+                while(input >= 0)
+                {
+                    cout<<"Enter link-length["<< i <<"] or enter -1 to exit:"<<endl;
+                    cin >> input;
+                    if(input == -1)
+                    {
+                        if(i<3)
+                        {
+                            cout<<"You have to provide exactly 3 links!"<<endl;
+                            input=0;
+                            continue;
+                        }
+                        else
+                            break;
+                    }
+                    if(i==3)
+                    {
+                        cout<<"The calculation is allowed for only 3 links!!"<<endl;
+                        break;
+                    }
+                    if(input != -1)
+                    {
+                            link_lengths[i++] = input;
+                    }
+                }
+                r2.inverse_kin(e_x, e_y, e_t, link_lengths[0], link_lengths[1], link_lengths[2]);
+
+                duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+                
+                std::cout << "duration milliseconds initialize beliefs " << 1000 * duration << '\n';
+            }
+            else
+            {
+                cout << "Invalid Choice! Kindly enter Y or N next time." << endl;  
+            }
     }
     else 
     {
 
             cout << "Kindly choose from one of the choices above. Thank you!" << endl;
     }
+
 }
