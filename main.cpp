@@ -84,6 +84,71 @@ int main()
             }
             
     }
+    else if (choice == 2)
+    {
 
+    
+            cout << "=============== Forward Kinematics (variable links) ==================="<<endl;
+            
+            char demo;
+
+            cout << "\n" << endl;
+            cout << "Note : Enter Y for YES | N for NO" << endl;
+            cout << "Would you like a test demonstration?" << endl;
+            cin >> demo;
+
+
+            if (demo == 'Y')
+            {
+                cout << "\n" << endl;
+                cout << "=======================================================" << endl;
+                cout << "Following Demo is for input parameters:" << endl;
+                cout << "=======================================================" << endl;
+                cout << "\n" << endl;
+                cout << "NUMBER OF LINKS = 4" << endl;
+                cout << "ANGLES : (Theta 0, Theta 1, Theta 2, Theta 3) = (30, 45, 30, 15) degrees" << endl;
+                cout << "LENGTHS : (Link 0, Link 1, Link 2, Link 3) = (1, 2, 3, 4) units" << endl;
+                cout << "\n" << endl;
+
+
+                int n = 4;
+                float theta1[n] = {30, 45, 30, 15};
+                float length1[n] = {1, 2, 3, 4};
+
+                Robot r1(theta1,length1,n);
+
+                r1.forward_kin_var_size();
+                cout << endl;
+
+            }
+            
+            else if (demo == 'N')
+            {
+                cout << "\n" << endl;
+                cout << "Enter number of links: ";
+                cin >> n;
+
+                float theta1[n];
+                float length1[n];
+                
+                for (i = 0; i < n; i++)
+                {
+                    cout << "Enter Theta for Link ["<< i <<"]"<< endl;
+                    cin >> theta1[i];
+                    cout << "Enter Length for Link ["<< i <<"]"<< endl;
+                    cin >> length1[i];
+                    cout << "\n" << endl;
+                }
+
+                Robot r1(theta1,length1,n);
+
+                r1.forward_kin_var_size();
+                cout << endl;
+            }
+            else 
+            {
+                cout << "Invalid Choice! Kindly enter Y or N next time." << endl;
+            }
+    }
 
 }
