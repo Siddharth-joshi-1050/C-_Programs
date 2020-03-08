@@ -10,7 +10,6 @@
 
 
 
-
 #include <iostream>
 #include <ctime>
 #include <math.h>
@@ -306,8 +305,20 @@ int main()
                             link_lengths[i++] = input;
                     }
                 }
-                r2.inverse_kin(e_x, e_y, e_t, link_lengths[0], link_lengths[1], link_lengths[2]);
 
+                float sum_lengths = link_lengths[0] + link_lengths[1] + link_lengths[2];
+                float dist = pow((pow(e_x,2) + pow(e_y,2)),0.5);
+                if (sum_lengths >= dist)
+                {
+
+                    r2.inverse_kin(e_x, e_y, e_t, link_lengths[0], link_lengths[1], link_lengths[2]);
+                }
+                else 
+                {
+                    cout << "\n" << endl;
+                    cout << "End-effector position lies in the exterior of reachable workspace." << endl;
+                    cout << "\n" << endl;
+                }
                 duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
                 
                 std::cout << "duration milliseconds initialize beliefs " << 1000 * duration << '\n';
